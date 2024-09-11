@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="./static/style.css">
+</head>
+<body>
+    <h1>ToDo List</h1>
+
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Enter a new task" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {{range .}}
+        <li>
+            {{if .Status}}
+                <strike>{{.Task}}</strike>
+            {{else}}
+                {{.Task}} <form action="/complete" method="POST" style="display:inline;">
+                    <input type="hidden" name="id" value="{{.ID}}">
+                    <button type="submit">Complete</button>
+                </form>
+            {{end}}
+        </li>
+        {{else}}
+        <li>No tasks yet!</li>
+        {{end}}
+    </ul>
+</body>
+</html>
